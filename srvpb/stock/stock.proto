@@ -1,0 +1,28 @@
+syntax = "proto3";
+option go_package = "github.com/wuqinqiang/easycar/examples/srvpb/stock";
+
+package stock;
+
+// The greeting service definition.
+service Stock {
+  rpc TryDeduct(Req) returns (TryDeductResp) {}
+  rpc ConfirmDeduct (Req) returns (ConfirmDeductResp) {}
+  rpc CancelDeduct (Req) returns (CancelDeductResp) {}
+}
+
+message Req {
+  string skuId = 1;
+  int64 number = 2;
+}
+
+
+message TryDeductResp {
+}
+
+
+message ConfirmDeductResp {
+}
+
+
+message CancelDeductResp {
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+option go_package = "github.com/wuqinqiang/easycar/examples/srvpb/order";
+
+package  order;
+
+// The greeting service definition.
+service Order {
+  rpc Create (Req) returns (CreateResp) {}
+  rpc Cancel (Req) returns (CancelResp) {}
+}
+
+message Req {
+  string userId = 1;
+  string skuId = 2;
+  int64 amount = 3;
+}
+
+
+message CreateResp {
+}
+
+
+message CancelResp {}
+
