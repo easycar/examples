@@ -2,12 +2,11 @@ package main
 
 import (
 	"flag"
-	"github.com/urfave/cli/v2"
+	"fmt"
 	"github.com/wuqinqiang/easycar/examples/withoutclient/commands"
 	"github.com/wuqinqiang/easycar/examples/withoutclient/srv/account"
 	"github.com/wuqinqiang/easycar/examples/withoutclient/srv/order"
 	"github.com/wuqinqiang/easycar/examples/withoutclient/srv/stock"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -22,7 +21,6 @@ var (
 )
 
 func main() {
-
 	flag.Parse()
 	order.Start(*orderPort)
 	stock.Start(*stockPort)
@@ -31,20 +29,10 @@ func main() {
 
 	commands.MustLoad(*easyCarAddr)
 
-	runCommands()
+	if err := commands.RunDemo(); err != nil {
+		fmt.Println(err)
+	}
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGINT)
 	<-c
-}
-
-func runCommands() {
-	app := cli.App{
-		Commands: []*cli.Command{
-			commands.BaseDemo,
-		},
-	}
-
-	if err := app.Run(os.Args); err != nil {
-		log.Fatal(err)
-	}
 }

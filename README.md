@@ -26,9 +26,9 @@
 那么我们一阶段总执行耗时可以粗略=max(account1,stock1)+order1。
 
 ##### start
-
+!!!!确保已经启动了easycar服务端
 ```shell
-go run withoutclient/main.go base ## 目前demo只提供上述组合一种场景，后续继续细化更多demo
+go run withoutclient/main.go ## 目前demo只提供上述组合一种场景，后续继续细化更多demo
 ```
 
 

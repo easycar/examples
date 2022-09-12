@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/wuqinqiang/easycar/proto"
 	"log"
+	"time"
 )
 
 var (
@@ -28,7 +29,7 @@ func (srv *Srv) TryDebit(ctx *gin.Context) {
 		ctx.JSON(500, "TryDebit err")
 		return
 	}
-	fmt.Println("[Account]TryDebit req:", req)
+	fmt.Println("[Account]TryDebit req:", req, time.Now().Unix())
 	ctx.JSON(200, nil)
 }
 
