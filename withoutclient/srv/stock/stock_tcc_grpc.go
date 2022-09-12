@@ -22,17 +22,17 @@ type Srv struct {
 }
 
 func (s Srv) TryDeduct(ctx context.Context, req *stock.Req) (*stock.TryDeductResp, error) {
-	fmt.Printf("TryDeduct req:%+v\n", req)
+	fmt.Printf("[Stock]TryDeduct req:%+v\n", req)
 	return new(stock.TryDeductResp), nil
 }
 
 func (s Srv) ConfirmDeduct(ctx context.Context, req *stock.Req) (*stock.ConfirmDeductResp, error) {
-	fmt.Printf("ConfirmDeduct req:%v\n", req)
+	fmt.Printf("[Stock]ConfirmDeduct req:%v\n", req)
 	return new(stock.ConfirmDeductResp), nil
 }
 
 func (s Srv) CancelDeduct(ctx context.Context, req *stock.Req) (*stock.CancelDeductResp, error) {
-	fmt.Printf("CancelDeuct req:%v\n", req)
+	fmt.Printf("[Stock]CancelDeuct req:%v\n", req)
 	return new(stock.CancelDeductResp), nil
 }
 

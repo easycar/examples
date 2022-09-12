@@ -28,7 +28,7 @@ func (srv *Srv) TryDebit(ctx *gin.Context) {
 		ctx.JSON(500, "TryDebit err")
 		return
 	}
-	fmt.Println("TryDebit req:", req)
+	fmt.Println("[Account]TryDebit req:", req)
 	ctx.JSON(200, nil)
 }
 
@@ -40,7 +40,7 @@ func (srv *Srv) ConfirmDebit(ctx *gin.Context) {
 		ctx.JSON(500, "ConfirmDebit err")
 		return
 	}
-	fmt.Println("ConfirmDebit req:", req)
+	fmt.Println("[Account] ConfirmDebit req:", req)
 	ctx.JSON(200, nil)
 
 }
@@ -53,7 +53,7 @@ func (srv *Srv) CancelDebit(ctx *gin.Context) {
 		ctx.JSON(500, "CancelDebit err")
 		return
 	}
-	fmt.Println("CancelDebit req:", req)
+	fmt.Println("[Account] CancelDebit req:", req)
 	ctx.JSON(200, nil)
 
 }

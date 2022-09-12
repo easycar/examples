@@ -10,7 +10,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 	"time"
 )
@@ -20,18 +19,16 @@ var (
 	stockPort   = flag.Int("stockPort", 50061, "the stock sever port")
 	accountPort = flag.Int("accountPort", 50062, " the account server port")
 	easyCarAddr = flag.String("addr", "localhost:8089", "the address to connect easycar server")
-	once        sync.Once
 )
 
 func main() {
 
-	once.Do(func() {
-		flag.Parse()
-		order.Start(*orderPort)
-		stock.Start(*stockPort)
-		account.Start(*accountPort)
-		time.Sleep(500 * time.Millisecond)
-	})
+	flag.Parse()
+	order.Start(*orderPort)
+	stock.Start(*stockPort)
+	account.Start(*accountPort)
+	time.Sleep(500 * time.Millisecond)
+
 	commands.MustLoad(*easyCarAddr)
 
 	runCommands()
