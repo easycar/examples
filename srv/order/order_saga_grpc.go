@@ -3,7 +3,7 @@ package order
 import (
 	"context"
 	"fmt"
-	"github.com/wuqinqiang/easycar/examples/srvpb/order"
+	"github.com/easycar/examples/srvpb/order"
 	"github.com/wuqinqiang/easycar/proto"
 	pbProto "google.golang.org/protobuf/proto"
 
@@ -14,7 +14,6 @@ import (
 
 var (
 	_ order.OrderServer = (*Srv)(nil)
-	p int
 )
 
 type Srv struct {
@@ -32,7 +31,6 @@ func (s Srv) Cancel(ctx context.Context, req *order.Req) (*order.CancelResp, err
 }
 
 func Start(port int) {
-	p = port
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		log.Fatalf("failed listen to:%v", err)
@@ -47,15 +45,20 @@ func Start(port int) {
 	fmt.Println("order server start:", port)
 }
 
-func RegisterSaga() (branches []*proto.RegisterReq_Branch) {
-	uri := fmt.Sprintf("127.0.0.1:%d", p)
+func NewData() []byte {
 	req := &order.Req{
 		UserId: "remember",
 		SkuId:  "520",
 		Amount: 100,
 	}
 
-	reqData, _ := pbProto.Marshal(req)
+	b, _ := pbProto.Marshal(req)
+	return b
+}
+
+func RegisterSaga(port int) (branches []*proto.RegisterReq_Branch) {
+	uri := fmt.Sprintf("127.0.0.1:%d", port)
+	reqData := NewData()
 
 	//SAGE NORMAL
 	branches = append(branches, &proto.RegisterReq_Branch{

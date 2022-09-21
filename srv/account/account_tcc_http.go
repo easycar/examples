@@ -9,10 +9,6 @@ import (
 	"time"
 )
 
-var (
-	p int
-)
-
 type DebitReq struct {
 	UserId string `json:"userId"`
 	Amount int64  `json:"amount"`
@@ -60,7 +56,6 @@ func (srv *Srv) CancelDebit(ctx *gin.Context) {
 }
 
 func Start(port int) {
-	p = port
 	e := gin.Default()
 	srv := new(Srv)
 	e.POST("/account/tryDebit", srv.TryDebit)
@@ -75,14 +70,18 @@ func Start(port int) {
 	fmt.Println("account server start:", port)
 }
 
-func RegisterTCC() (branches []*proto.RegisterReq_Branch) {
+func NewData() []byte {
 	reqData := DebitReq{
 		UserId: "remember",
 		Amount: 100,
 	}
 	b, _ := json.Marshal(reqData)
+	return b
+}
 
-	uri := fmt.Sprintf("http://localhost:%d", p)
+func RegisterTCC(port int) (branches []*proto.RegisterReq_Branch) {
+	b := NewData()
+	uri := fmt.Sprintf("http://localhost:%d", port)
 
 	// try
 	branches = append(branches, &proto.RegisterReq_Branch{

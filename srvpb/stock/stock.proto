@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "github.com/wuqinqiang/easycar/examples/srvpb/stock";
+option go_package = "github.com/easycar/examples/srvpb/stock";
 
 package stock;
 

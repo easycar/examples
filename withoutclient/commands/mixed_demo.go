@@ -3,9 +3,10 @@ package commands
 import (
 	"context"
 	"fmt"
-	"github.com/wuqinqiang/easycar/examples/withoutclient/srv/account"
-	"github.com/wuqinqiang/easycar/examples/withoutclient/srv/order"
-	"github.com/wuqinqiang/easycar/examples/withoutclient/srv/stock"
+	"github.com/easycar/examples/conf"
+	"github.com/easycar/examples/srv/account"
+	"github.com/easycar/examples/srv/order"
+	"github.com/easycar/examples/srv/stock"
 	"github.com/wuqinqiang/easycar/proto"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"time"
@@ -32,9 +33,11 @@ func RunDemo() error {
 		branches []*proto.RegisterReq_Branch
 	)
 
-	branches = append(branches, order.RegisterSaga()...)
-	branches = append(branches, account.RegisterTCC()...)
-	branches = append(branches, stock.RegisterTcc()...)
+	settings := conf.New()
+
+	branches = append(branches, order.RegisterSaga(settings.OrderPort)...)
+	branches = append(branches, account.RegisterTCC(settings.AccountPort)...)
+	branches = append(branches, stock.RegisterTcc(settings.StockPort)...)
 
 	registerReq.Branches = append(registerReq.Branches, branches...)
 
@@ -44,14 +47,13 @@ func RunDemo() error {
 	startReq := proto.StartReq{GId: beginResp.GetGId()}
 
 	defer func() {
-
 		// phase2
 		if err != nil {
 			var (
 				rolbackReq proto.RollBckReq
 			)
 			rolbackReq.GId = beginResp.GetGId()
-			if _, err := easycar.Rollback(ctx, &rolbackReq); err != nil {
+			if _, err = easycar.Rollback(ctx, &rolbackReq); err != nil {
 				err = fmt.Errorf("gid %v Rollback err:%v", beginResp.GetGId(), err)
 				return
 			}
@@ -61,10 +63,10 @@ func RunDemo() error {
 			commitReq proto.CommitReq
 		)
 		commitReq.GId = beginResp.GetGId()
-		if _, err := easycar.Commit(ctx, &commitReq); err != nil {
+		if _, err = easycar.Commit(ctx, &commitReq); err != nil {
 			err = fmt.Errorf("gid %v Commit err:%v", beginResp.GetGId(), err)
 		}
-		return
+		fmt.Println("end gid:", beginResp.GetGId())
 	}()
 	// phase1
 	if _, err = easycar.Start(ctx, &startReq); err != nil {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/wuqinqiang/easycar/examples/srvpb/stock"
+	"github.com/easycar/examples/srvpb/stock"
 	"github.com/wuqinqiang/easycar/proto"
 	"google.golang.org/grpc"
 	pbProto "google.golang.org/protobuf/proto"
@@ -14,7 +14,6 @@ import (
 
 var (
 	_ stock.StockServer = (*Srv)(nil)
-	p int
 )
 
 type Srv struct {
@@ -37,7 +36,6 @@ func (s Srv) CancelDeduct(ctx context.Context, req *stock.Req) (*stock.CancelDed
 }
 
 func Start(port int) {
-	p = port
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
@@ -53,15 +51,19 @@ func Start(port int) {
 	fmt.Println("stock server start:", port)
 }
 
-func RegisterTcc() (branches []*proto.RegisterReq_Branch) {
-	uri := fmt.Sprintf("127.0.0.1:%d", p)
+func NewData() []byte {
 	req := &stock.Req{
 		SkuId:  "remember250",
 		Number: 10,
 	}
 
-	reqData, _ := pbProto.Marshal(req)
+	b, _ := pbProto.Marshal(req)
+	return b
+}
 
+func RegisterTcc(port int) (branches []*proto.RegisterReq_Branch) {
+	uri := fmt.Sprintf("127.0.0.1:%d", port)
+	reqData := NewData()
 	branches = append(branches, &proto.RegisterReq_Branch{
 		Uri:      uri + "/stock.Stock/TryDeduct",
 		ReqData:  string(reqData),
