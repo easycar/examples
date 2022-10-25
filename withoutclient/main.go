@@ -1,21 +1,20 @@
-package main
+package withoutclient
 
 import (
-	"flag"
-	"fmt"
 	"github.com/easycar/examples/withoutclient/commands"
+	"github.com/urfave/cli/v2"
 )
 
-var (
-	easyCarAddr = flag.String("addr", "localhost:8089", "the address to connect easycar server")
-)
-
-func main() {
-	commands.MustLoad(*easyCarAddr)
-
-	flag.Parse()
-
-	if err := commands.RunDemo(); err != nil {
-		fmt.Println(err)
-	}
+var HttpCmd = &cli.Command{
+	Name:    "http",
+	Aliases: []string{"http"},
+	Usage:   "just request easycar service by http",
+	Action: func(cliCtx *cli.Context) error {
+		serverUrl := cliCtx.String("easycar")
+		commands.MustLoad(serverUrl)
+		if err := commands.RunDemo(); err != nil {
+			return err
+		}
+		return nil
+	},
 }

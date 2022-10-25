@@ -34,7 +34,7 @@ func (srv *Srv) ConfirmDebit(ctx *gin.Context) {
 		req DebitReq
 	)
 	if err := ctx.ShouldBindJSON(&req); err != nil {
-		ctx.JSON(500, "ConfirmDebit err")
+		ctx.JSON(500, fmt.Sprintf("ConfirmDebit err:%v", err))
 		return
 	}
 	fmt.Println("[Account] ConfirmDebit req:", req)
