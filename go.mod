@@ -3,10 +3,10 @@ module github.com/easycar/examples
 go 1.18
 
 require (
-	github.com/easycar/client-go v0.0.0-20221025104707-4398fffd1886
+	github.com/easycar/client-go v0.0.0-20221031112404-92da3ee13705
 	github.com/gin-gonic/gin v1.8.1
 	github.com/urfave/cli/v2 v2.20.3
-	github.com/wuqinqiang/easycar v0.0.0-20221024115122-1d1fbe008277
+	github.com/wuqinqiang/easycar v0.0.0-20221031112210-378bf94939b6
 	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -47,7 +47,7 @@ require (
 	golang.org/x/net v0.1.0 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
-	google.golang.org/genproto v0.0.0-20221024183307-1bc688fe9f3e // indirect
+	google.golang.org/genproto v0.0.0-20221027153422-115e99e71e1c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/gorm v1.24.0 // indirect
 )
