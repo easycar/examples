@@ -3,10 +3,10 @@ module github.com/easycar/examples
 go 1.18
 
 require (
-	github.com/easycar/client-go v0.0.0-20221031112404-92da3ee13705
+	github.com/easycar/client-go v0.0.0-20221102111957-7d0327879288
 	github.com/gin-gonic/gin v1.8.1
 	github.com/urfave/cli/v2 v2.20.3
-	github.com/wuqinqiang/easycar v0.0.0-20221031112210-378bf94939b6
+	github.com/wuqinqiang/easycar v0.0.0-20221102110826-31378886ca1b
 	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -28,15 +28,20 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/lafikl/consistent v0.0.0-20220512074542-bdd3606bfc3e // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/starwander/GoFibonacciHeap v0.0.0-20190508061137-ba2e4f01000a // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
+	github.com/zehuamama/balancer v0.2.0 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.5 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.5 // indirect
 	go.etcd.io/etcd/client/v3 v3.5.5 // indirect
