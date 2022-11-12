@@ -46,6 +46,7 @@ func (srv *Srv) CancelDebit(ctx *gin.Context) {
 	var (
 		req DebitReq
 	)
+
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(500, "CancelDebit err")
 		return

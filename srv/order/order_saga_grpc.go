@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"github.com/easycar/examples/srvpb/order"
 	"github.com/wuqinqiang/easycar/proto"
-	pbProto "google.golang.org/protobuf/proto"
-
 	"google.golang.org/grpc"
+	pbProto "google.golang.org/protobuf/proto"
 	"log"
 	"net"
 )
@@ -21,12 +20,12 @@ type Srv struct {
 }
 
 func (s Srv) Create(ctx context.Context, req *order.Req) (*order.CreateResp, error) {
-	fmt.Printf("[Order]create order req:%+v\n", req)
+	fmt.Printf("[Order]create order req userId %v skuId %v \n", req.GetSkuId(), req.GetUserId())
 	return new(order.CreateResp), nil
 }
 
 func (s Srv) Cancel(ctx context.Context, req *order.Req) (*order.CancelResp, error) {
-	fmt.Printf("[Order]Cancel order req:%+v\n", req)
+	fmt.Printf("[Order]Cancel order req :%+v\n", req)
 	return new(order.CancelResp), nil
 }
 

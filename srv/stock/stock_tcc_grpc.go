@@ -31,7 +31,7 @@ func (s Srv) ConfirmDeduct(ctx context.Context, req *stock.Req) (*stock.ConfirmD
 }
 
 func (s Srv) CancelDeduct(ctx context.Context, req *stock.Req) (*stock.CancelDeductResp, error) {
-	fmt.Printf("[Stock]CancelDeuct req:%v\n", req)
+	fmt.Printf("[Stock]CancelDeuct req skuId %v number %v\n", req.GetSkuId(), req.GetNumber())
 	return new(stock.CancelDeductResp), nil
 }
 

@@ -3,10 +3,10 @@ module github.com/easycar/examples
 go 1.18
 
 require (
-	github.com/easycar/client-go v0.0.0-20221103132344-d7bdb8e73b9f
+	github.com/easycar/client-go v0.0.0-20221112025255-eed5dfc5934a
 	github.com/gin-gonic/gin v1.8.1
 	github.com/urfave/cli/v2 v2.20.3
-	github.com/wuqinqiang/easycar v0.0.0-20221103132041-fbd182dc6aa2
+	github.com/wuqinqiang/easycar v0.0.0-20221111020144-1250cb012b74
 	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -16,7 +16,7 @@ require (
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
-	github.com/envoyproxy/protoc-gen-validate v0.8.0 // indirect
+	github.com/envoyproxy/protoc-gen-validate v0.9.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
@@ -48,10 +48,10 @@ require (
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.1.0 // indirect
-	golang.org/x/net v0.1.0 // indirect
-	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/net v0.2.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
-	google.golang.org/genproto v0.0.0-20221027153422-115e99e71e1c // indirect
+	google.golang.org/genproto v0.0.0-20221111202108-142d8a6fa32e // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/gorm v1.24.1 // indirect
 )
