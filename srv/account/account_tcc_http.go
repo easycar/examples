@@ -21,6 +21,7 @@ func (srv *Srv) TryDebit(ctx *gin.Context) {
 	var (
 		req DebitReq
 	)
+	time.Sleep(300 * time.Millisecond)
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(500, "TryDebit err")
 		return

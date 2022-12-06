@@ -9,6 +9,7 @@ import (
 	pbProto "google.golang.org/protobuf/proto"
 	"log"
 	"net"
+	"time"
 )
 
 var (
@@ -20,6 +21,7 @@ type Srv struct {
 }
 
 func (s Srv) Create(ctx context.Context, req *order.Req) (*order.CreateResp, error) {
+	time.Sleep(400 * time.Millisecond)
 	fmt.Printf("[Order]create order req userId %v skuId %v \n", req.GetSkuId(), req.GetUserId())
 	return new(order.CreateResp), nil
 }

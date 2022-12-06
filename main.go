@@ -17,6 +17,7 @@ func main() {
 			client.DirectCmd,
 			client.TlsCmd,
 			client.DiscoveryCmd,
+			client.DaemonCmd,
 			withoutclient.HttpCmd,
 		},
 		Flags: []cli.Flag{
