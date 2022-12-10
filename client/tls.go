@@ -5,8 +5,8 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	client "github.com/easycar/client-go"
 	"github.com/urfave/cli/v2"
+	client "github.com/wuqinqiang/easycar/client"
 	"google.golang.org/grpc"
 	"io/ioutil"
 	"log"
@@ -29,7 +29,7 @@ var TlsCmd = &cli.Command{
 		},
 	},
 	Action: func(cliCtx *cli.Context) error {
-		serverUrl := cliCtx.String("easycar")
+		server := cliCtx.String("easycar")
 		crtFile := cliCtx.String("crtFile")
 		serverName := cliCtx.String("serverName")
 
@@ -51,7 +51,7 @@ var TlsCmd = &cli.Command{
 		opts = append(opts, client.WithGrpcDailOpts([]grpc.DialOption{grpc.WithBlock(), grpc.WithReturnConnectionError()}))
 		opts = append(opts, client.WithConnTimeout(5*time.Second))
 
-		cli, err := client.New(serverUrl, opts...)
+		cli, err := client.New(server, opts...)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -64,12 +64,11 @@ var TlsCmd = &cli.Command{
 		}
 		fmt.Println("Begin gid:", gid)
 
-		if err = cli.AddGroup(false, GetSrv()...).
-			Register(ctx); err != nil {
+		if err = cli.Register(ctx, gid, GetSrv()); err != nil {
 			log.Fatal(err)
 		}
 
-		if err := cli.Start(ctx); err != nil {
+		if err := cli.Start(ctx, gid); err != nil {
 			fmt.Println("start err:", err)
 		}
 		fmt.Println("end gid:", gid)

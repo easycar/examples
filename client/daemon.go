@@ -3,8 +3,8 @@ package client
 import (
 	"context"
 	"fmt"
-	client "github.com/easycar/client-go"
 	"github.com/urfave/cli/v2"
+	"github.com/wuqinqiang/easycar/client"
 	"google.golang.org/grpc"
 	"math/rand"
 	"sync"
@@ -15,7 +15,7 @@ var DaemonCmd = &cli.Command{
 	Name:    "daemon",
 	Aliases: []string{"daemon"},
 	Action: func(cliCtx *cli.Context) error {
-		serverUrl := cliCtx.String("easycar")
+		server := cliCtx.String("easycar")
 		var opts []client.Option
 		opts = append(opts, client.WithGrpcDailOpts([]grpc.DialOption{grpc.WithBlock(), grpc.WithReturnConnectionError()}))
 		opts = append(opts, client.WithConnTimeout(5*time.Second))
@@ -34,7 +34,7 @@ var DaemonCmd = &cli.Command{
 					defer wg.Done()
 					ctx := context.Background()
 
-					cli, err := client.New(serverUrl, opts...)
+					cli, err := client.New(server, opts...)
 					if err != nil {
 						fmt.Printf("[client] wrong new err:%v\n", err)
 						return
@@ -47,13 +47,12 @@ var DaemonCmd = &cli.Command{
 						return
 					}
 					fmt.Println("Begin gid:", gid)
-					if err = cli.AddGroup(false, GetSrv()...).
-						Register(ctx); err != nil {
+
+					if err = cli.Register(ctx, gid, GetSrv()); err != nil {
 						fmt.Printf("[client] wrong AddGroup gid:%s err:%v\n", gid, err)
 						return
 					}
-
-					if err := cli.Start(ctx); err != nil {
+					if err := cli.Start(ctx, gid); err != nil {
 						fmt.Printf("[client] wrong Start gid:%s err:%v\n", gid, err)
 						return
 					}

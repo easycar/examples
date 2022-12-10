@@ -3,9 +3,9 @@ package client
 import (
 	"context"
 	"fmt"
-	client "github.com/easycar/client-go"
 	"github.com/hashicorp/consul/api"
 	"github.com/urfave/cli/v2"
+	client "github.com/wuqinqiang/easycar/client"
 	"github.com/wuqinqiang/easycar/core/registry"
 	"github.com/wuqinqiang/easycar/core/registry/consulx"
 	"github.com/wuqinqiang/easycar/core/registry/etcdx"
@@ -26,7 +26,7 @@ var DiscoveryCmd = &cli.Command{
 	},
 
 	Action: func(cliCtx *cli.Context) error {
-		serverUrl := cliCtx.String("easycar")
+		server := cliCtx.String("easycar")
 
 		count := 1
 		if cliCtx.Int("count") > 1 {
@@ -43,7 +43,6 @@ var DiscoveryCmd = &cli.Command{
 		if err != nil {
 			return err
 		}
-
 		m := cliCtx.String("mod")
 		if m == "consul" {
 			client, err := api.NewClient(api.DefaultConfig())
@@ -53,7 +52,9 @@ var DiscoveryCmd = &cli.Command{
 			d = consulx.New(client)
 		}
 
-		cli, err := client.New(serverUrl, client.WithDiscovery(d))
+		client.RegisterBuilder(d)
+
+		cli, err := client.New(server, client.WithDiscovery())
 		if err != nil {
 			return err
 		}
@@ -72,11 +73,11 @@ var DiscoveryCmd = &cli.Command{
 			}
 			fmt.Println("Begin gid:", gid)
 
-			if err = cli.AddGroup(false, GetSrv()...).
-				Register(ctx); err != nil {
+			if err = cli.Register(ctx, gid, GetSrv()); err != nil {
 				return err
 			}
-			if err := cli.Start(ctx); err != nil {
+
+			if err := cli.Start(ctx, gid); err != nil {
 				fmt.Println("start err:", err)
 			}
 			fmt.Println("end gid:", gid)

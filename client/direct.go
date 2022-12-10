@@ -3,8 +3,8 @@ package client
 import (
 	"context"
 	"fmt"
-	client "github.com/easycar/client-go"
 	"github.com/urfave/cli/v2"
+	client "github.com/wuqinqiang/easycar/client"
 	"google.golang.org/grpc"
 	"log"
 	"time"
@@ -32,12 +32,10 @@ var DirectCmd = &cli.Command{
 			log.Fatal(err)
 		}
 		fmt.Println("Begin gid:", gid)
-		if err = cli.AddGroup(false, GetSrv()...).
-			Register(ctx); err != nil {
+		if err = cli.Register(ctx, gid, GetSrv()); err != nil {
 			log.Fatal(err)
 		}
-
-		if err := cli.Start(ctx); err != nil {
+		if err := cli.Start(ctx, gid); err != nil {
 			fmt.Println("start err:", err)
 		}
 		fmt.Println("end gid:", gid)
